@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Connexion…</title>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<!-- Page de retour de la connexion Microsoft : transmet la réponse à la page principale puis s'efface. -->
+<script src="msal-redirect-bridge.min.js"></script>
+<script>
+  msalRedirectBridge.broadcastResponseToMainFrame().catch(function () {
+    window.location.replace('./');
+  });
+</script>
+</body>
+</html>

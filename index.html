@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Reporting Service Investissement — Euryale</title>
+<style>
+@font-face{font-family:'Nunito';font-weight:400;font-display:swap;src:url(nunito-latin-400-normal.woff2) format('woff2');}
+@font-face{font-family:'Nunito';font-weight:600;font-display:swap;src:url(nunito-latin-600-normal.woff2) format('woff2');}
+@font-face{font-family:'Nunito';font-weight:700;font-display:swap;src:url(nunito-latin-700-normal.woff2) format('woff2');}
+@font-face{font-family:'Nunito';font-weight:800;font-display:swap;src:url(nunito-latin-800-normal.woff2) format('woff2');}
+:root{
+  --navy:#1a2e4a;--navy2:#2a4570;--gold:#c4993a;--gold2:#d4aa52;
+  --fg:#1a2e4a;--fg-muted:#6b7f99;--bg:#f4f6f9;--panel:#ffffff;--line:#e1e7ef;
+  --ok:#2d9d6e;--bad:#d94f4f;--warn:#b7791f;--bar-muted:#c5cfdb;--blue:#4a6fa5;--teal:#3a8f8c;
+  --radius:16px;--shadow:0 2px 16px rgba(26,46,74,.07);
+  --font:'Nunito',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:14px;}
+.wrap{max-width:1320px;margin:0 auto;padding:20px 24px 48px;display:flex;flex-direction:column;gap:20px;}
+button{font:inherit;}
+
+/* Bandeau */
+.band{background:linear-gradient(135deg,var(--navy) 0%,#13233b 100%);border-radius:var(--radius);color:#fff;position:relative;overflow:hidden;}
+.band::before{content:'';position:absolute;right:-50px;bottom:-90px;width:300px;height:300px;border-radius:50%;background:var(--gold);opacity:.11;pointer-events:none;}
+.band::after{content:'';position:absolute;right:240px;top:-110px;width:220px;height:220px;border-radius:50%;background:var(--gold);opacity:.06;pointer-events:none;}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:14px 22px;border-bottom:1px solid rgba(255,255,255,.1);position:relative;z-index:1;}
+.brand{display:flex;align-items:center;gap:14px;min-width:0;}
+.logo{height:34px;width:auto;flex-shrink:0;}
+.sep{width:1px;height:26px;background:rgba(255,255,255,.25);}
+.page{font-weight:700;font-size:15px;white-space:nowrap;}
+.right{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.tabs{display:flex;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:100px;padding:3px;gap:2px;}
+.tab{appearance:none;background:transparent;border:0;color:rgba(255,255,255,.72);font-weight:700;font-size:13px;padding:7px 16px;border-radius:100px;cursor:pointer;}
+.tab:hover{color:#fff;}
+.tab[aria-selected="true"]{background:var(--gold);color:#fff;box-shadow:0 2px 10px rgba(196,153,58,.35);}
+.user{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.7);}
+.user b{color:#fff;font-weight:700;}
+.ghost{appearance:none;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;border-radius:100px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;}
+.ghost:hover{background:rgba(255,255,255,.16);}
+.hero{padding:22px 22px 26px;position:relative;z-index:1;}
+.kicker{margin:0 0 4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold2);font-weight:800;}
+.h1{margin:0 0 8px;font-size:clamp(22px,3vw,28px);font-weight:800;letter-spacing:-.03em;color:#fff;line-height:1.15;}
+.lead{margin:0;max-width:66ch;color:rgba(255,255,255,.78);font-size:14px;line-height:1.6;}
+.lead b{color:#fff;font-weight:800;}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:12px;margin-top:18px;}
+.stat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 16px;}
+.stat-v{display:block;font-size:clamp(20px,2.4vw,26px);font-weight:800;color:var(--gold2);line-height:1.1;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.stat-l{display:block;margin-top:5px;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.55);}
+.stat-s{display:block;margin-top:2px;font-size:11.5px;color:rgba(255,255,255,.6);}
+
+/* Cartes */
+.section{display:flex;flex-direction:column;gap:20px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px;}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:20px;}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;min-width:0;box-shadow:var(--shadow);}
+.card::before{content:'';display:block;height:4px;background:linear-gradient(90deg,var(--navy2),var(--gold));}
+.card-b{padding:20px;}
+.h2{margin:0 0 2px;font-size:16px;font-weight:800;letter-spacing:-.01em;}
+.sub{margin:0 0 14px;color:var(--fg-muted);font-size:12px;}
+.mini{display:flex;flex-direction:column;}
+.mini-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid var(--line);}
+.mini-row:first-child{border-top:0;}
+.mini-l{color:var(--fg-muted);font-size:13px;}
+.mini-v{font-weight:800;font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.big{display:block;font-size:30px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums;}
+.big-l{display:block;color:var(--fg-muted);font-size:13px;margin-top:2px;}
+.is-bad{color:var(--bad);}
+.is-good{color:var(--ok);}
+.sk{color:transparent!important;background:linear-gradient(90deg,rgba(150,165,185,.18),rgba(150,165,185,.32),rgba(150,165,185,.18));border-radius:6px;}
+.band .sk{background:rgba(255,255,255,.14);}
+
+/* Graphiques */
+.chart{position:relative;min-height:220px;}
+.chart svg{display:block;overflow:visible;}
+.chart .lbl{font-size:12px;fill:var(--fg-muted);font-family:var(--font);}
+.chart .val{font-size:12px;font-weight:700;fill:var(--fg);font-variant-numeric:tabular-nums;font-family:var(--font);}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--fg-muted);margin-bottom:6px;}
+.legend span{display:inline-flex;align-items:center;gap:6px;}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block;}
+.tip{position:absolute;z-index:5;pointer-events:none;background:#fff;border:1px solid var(--line);box-shadow:0 8px 24px rgba(26,46,74,.16);border-radius:8px;padding:8px 10px;font-size:12px;color:var(--fg-muted);max-width:260px;line-height:1.45;}
+.tip-t{color:var(--fg);font-weight:800;margin-bottom:2px;}
+.empty{color:var(--fg-muted);font-size:13px;margin:0;padding:12px 0;}
+.err{color:var(--bad);font-size:13px;margin:0;padding:12px 0;}
+
+/* Tableaux */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px;}
+.select,.search{font:inherit;font-size:13px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:100px;padding:8px 14px;outline:none;}
+.search{flex:1 1 200px;min-width:0;}
+.select:focus,.search:focus{border-color:var(--gold);}
+.count{font-size:12.5px;color:var(--fg-muted);white-space:nowrap;}
+.tablewrap{overflow:auto;max-height:560px;border:1px solid var(--line);border-radius:10px;}
+table{width:100%;border-collapse:collapse;font-size:12.5px;}
+th{position:sticky;top:0;z-index:1;background:var(--panel);text-align:left;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-muted);font-weight:800;padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap;}
+td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+tbody tr:last-child td{border-bottom:0;}
+tbody tr:hover td{background:rgba(196,153,58,.07);}
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.code{white-space:nowrap;color:var(--fg-muted);font-variant-numeric:tabular-nums;}
+.strong{font-weight:700;min-width:140px;}
+.pill{white-space:nowrap;font-weight:700;color:var(--gold);}
+.note{min-width:220px;max-width:360px;color:var(--fg-muted);font-size:12px;}
+.foot{color:var(--fg-muted);font-size:12.5px;line-height:1.6;}
+.foot summary{cursor:pointer;font-weight:700;color:var(--fg);}
+.foot ul{margin:8px 0 0;padding-left:18px;}
+.warn{color:var(--warn);}
+
+/* Écran de connexion / erreur */
+.gate{display:flex;justify-content:center;padding:40px 0;}
+.gate-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:32px;max-width:520px;text-align:center;}
+.gate-card h2{margin:0 0 8px;font-size:20px;font-weight:800;}
+.gate-card p{margin:0 0 18px;color:var(--fg-muted);line-height:1.6;}
+.btn{appearance:none;border:0;background:var(--gold);color:#fff;font-weight:800;font-size:14px;padding:11px 22px;border-radius:100px;cursor:pointer;box-shadow:0 2px 10px rgba(196,153,58,.3);}
+.btn:hover{background:var(--gold2);}
+[hidden]{display:none!important;}
+
+@media (max-width:680px){.wrap{padding:12px 12px 32px;}.sep,.page{display:none;}.hero{padding:16px;}.user .who{display:none;}}
+@media print{.tabs,.toolbar,.user button{display:none!important;}.tablewrap{max-height:none;overflow:visible;}#mouvements{break-before:page;}body{background:#fff;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="band" id="entete">
+    <div class="top">
+      <div class="brand">
+        <svg class="logo" viewBox="0 0 320 100" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Euryale">
+          <path d="M 54 18 C 38 22 24 32 20 46 C 32 34 46 24 54 18 Z" fill="#7d9bd0"/>
+          <path d="M 48 32 C 30 36 16 50 14 64 C 28 50 40 38 48 32 Z" fill="#3a8f8c"/>
+          <path d="M 42 52 C 26 54 14 66 14 80 C 24 68 36 58 42 52 Z" fill="#e07820"/>
+          <path d="M 38 68 C 26 70 18 80 20 90 C 26 80 34 72 38 68 Z" fill="#b8a020"/>
+          <text x="72" y="72" font-family="'Nunito','Trebuchet MS',sans-serif" font-weight="700" font-size="52" fill="#ffffff" letter-spacing="-1">euryale</text>
+        </svg>
+        <span class="sep"></span>
+        <span class="page">Reporting Service Investissement</span>
+      </div>
+      <div class="right">
+        <nav class="tabs" role="tablist" aria-label="Rubriques">
+          <button class="tab" role="tab" type="button" data-tab="dealflow" aria-selected="true">Dealflow</button>
+          <button class="tab" role="tab" type="button" data-tab="mouvements" aria-selected="false">Mouvements patrimoine</button>
+        </nav>
+        <div class="user" id="user" hidden>
+          <span class="who"><b id="u-name"></b> · <span id="u-stamp">—</span></span>
+          <button class="ghost" type="button" id="btn-refresh" title="Relire les fichiers SharePoint">Actualiser</button>
+          <button class="ghost" type="button" id="btn-logout">Déconnexion</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Connexion, chargement ou erreur -->
+  <div class="gate" id="gate">
+    <div class="gate-card">
+      <h2 id="gate-t">Connexion en cours…</h2>
+      <p id="gate-m">Vérification de votre compte Microsoft Euryale.</p>
+      <button class="btn" type="button" id="gate-btn" hidden>Se connecter avec Microsoft</button>
+    </div>
+  </div>
+
+  <main id="main" hidden>
+    <!-- ===================== DEALFLOW ===================== -->
+    <section id="dealflow" class="section" aria-labelledby="df-titre">
+      <div class="band">
+        <div class="hero">
+          <p class="kicker">Dealflow 2026</p>
+          <h1 class="h1" id="df-titre">Dossiers d'investissement reçus</h1>
+          <p class="lead"><b data-k="dfKpi.dossiers" data-f="int">—</b> dossiers reçus depuis janvier, pour <b data-k="dfKpi.volume" data-f="meur">—</b> de volume étudié. <b data-k="dfKpi.investis" data-f="int">—</b> ont été investis et <b data-k="dfKpi.en_cours" data-f="int">—</b> sont encore à l'étude.</p>
+          <div class="stats">
+            <div class="stat"><span class="stat-v" data-k="dfKpi.dossiers" data-f="int">—</span><span class="stat-l">Dossiers reçus</span><span class="stat-s">Depuis le 1er janvier 2026</span></div>
+            <div class="stat"><span class="stat-v" data-k="dfKpi.volume" data-f="meur">—</span><span class="stat-l">Volume étudié</span><span class="stat-s">Prix AEM, converti en €</span></div>
+            <div class="stat"><span class="stat-v" data-k="dfKpi.rendement" data-f="pct">—</span><span class="stat-l">Rendement moyen</span><span class="stat-s">Loyer total / prix AEM total</span></div>
+            <div class="stat"><span class="stat-v" data-k="dfKpi.taux_transfo" data-f="pct1">—</span><span class="stat-l">Taux de transformation</span><span class="stat-s">Dossiers investis / reçus</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card"><div class="card-b">
+          <span class="big is-good" data-k="dfKpi.investis" data-f="int">—</span>
+          <span class="big-l">Dossiers investis, pour <b data-k="dfKpi.volume_investi" data-f="meur">—</b></span>
+        </div></div>
+        <div class="card"><div class="card-b">
+          <span class="big" data-k="dfKpi.en_cours" data-f="int">—</span>
+          <span class="big-l">Dossiers en cours (étude, négociation, LOI, DD), pour <b data-k="dfKpi.volume_en_cours" data-f="meur">—</b></span>
+        </div></div>
+        <div class="card"><div class="card-b">
+          <span class="big" data-k="dfKpi.refuses" data-f="int">—</span>
+          <span class="big-l">Dossiers refusés, et <b data-k="dfKpi.perdus" data-f="int">—</b> perdus</span>
+        </div></div>
+      </div>
+
+      <div class="grid">
+        <div class="card"><div class="card-b">
+          <h2 class="h2">Où en sont les dossiers</h2>
+          <p class="sub">Nombre de dossiers 2026 par statut</p>
+          <div class="chart" id="ch-statut"></div>
+        </div></div>
+        <div class="card"><div class="card-b">
+          <h2 class="h2">Dossiers reçus par trimestre</h2>
+          <p class="sub">Selon leur issue à ce jour</p>
+          <div class="chart" id="ch-trim"></div>
+        </div></div>
+        <div class="card"><div class="card-b">
+          <h2 class="h2">Volume étudié par pays</h2>
+          <p class="sub">Prix AEM des dossiers 2026, en millions d'euros</p>
+          <div class="chart" id="ch-pays"></div>
+        </div></div>
+        <div class="card"><div class="card-b">
+          <h2 class="h2">Typologies des dossiers</h2>
+          <p class="sub">Nombre de dossiers 2026, les 8 typologies les plus fréquentes</p>
+          <div class="chart" id="ch-typo"></div>
+        </div></div>
+      </div>
+
+      <div class="card"><div class="card-b">
+        <h2 class="h2">Pipeline en cours</h2>
+        <p class="sub">Dossiers à l'étude, en négociation, en LOI ou en due diligence — du plus récent au plus ancien</p>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Code</th><th>Reçu le</th><th>Statut</th><th>Actif</th><th>Groupe / exploitant</th><th>Pays</th><th>Typologie</th><th class="num">Prix AEM (€)</th><th class="num">Rdt AEM</th><th>Resp.</th></tr></thead>
+            <tbody id="tb-pipeline"></tbody>
+          </table>
+        </div>
+      </div></div>
+
+      <div class="card"><div class="card-b">
+        <h2 class="h2">Tous les dossiers 2026</h2>
+        <p class="sub">Filtrez par statut ou par pays, ou recherchez un actif, un groupe, une ville, un commentaire</p>
+        <div class="toolbar">
+          <select class="select" id="f-statut" aria-label="Statut"></select>
+          <select class="select" id="f-pays" aria-label="Pays"></select>
+          <input class="search" id="f-q" type="search" placeholder="Rechercher…" aria-label="Rechercher un dossier">
+          <span class="count"><span id="f-n">—</span> dossiers affichés</span>
+        </div>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Code</th><th>Reçu le</th><th>Statut</th><th>Actif</th><th>Groupe / exploitant</th><th>Pays</th><th>Typologie</th><th class="num">Prix AEM (€)</th><th class="num">Rdt AEM</th><th>Commentaires</th></tr></thead>
+            <tbody id="tb-liste"></tbody>
+          </table>
+        </div>
+      </div></div>
+
+      <details class="foot">
+        <summary>Méthode et définitions</summary>
+        <ul>
+          <li>Source : tableau de l'onglet « Dealflow - Synthèse » du fichier « Fichier reporting_Dealflow_2026 » (SharePoint Equipe Invest), relu à chaque ouverture de la page. Dernier dossier reçu le <b data-k="dfKpi.dernier_dossier" data-f="date">—</b>.</li>
+          <li>Périmètre : dossiers reçus en 2026 (codes OP26). Les opérations OP25 sont exclues, comme dans l'onglet Résumé.</li>
+          <li>Volume : prix AEM converti en euros avec les taux de l'onglet Résumé (£ et $ CAD). Les montants en « $ » prennent le taux « $ CAD ». <span class="warn"><b data-k="dfKpi.sans_devise" data-f="int">—</b> dossier(s) sans devise renseignée sont comptés en euros.</span></li>
+          <li>Rendement moyen : loyer annuel total divisé par le volume total. Rendement d'un dossier : « Rendement brut AEM normatif » du fichier.</li>
+          <li>En cours : statuts Studied, Expression of interest, Négociations, LOI et DD. Clos : Refused, Refused after nego et Lost.</li>
+        </ul>
+      </details>
+    </section>
+
+    <!-- ===================== MOUVEMENTS PATRIMOINE ===================== -->
+    <section id="mouvements" class="section" aria-labelledby="mv-titre" hidden>
+      <div class="band">
+        <div class="hero">
+          <p class="kicker">Mouvements patrimoine 2026</p>
+          <h1 class="h1" id="mv-titre">Acquisitions, engagements et cessions</h1>
+          <p class="lead"><b data-k="acqKpi.nb" data-f="int">—</b> lignes d'acquisition pour <b data-k="acqKpi.prix_aem" data-f="meur">—</b>, <b data-k="engKpi.nb" data-f="int">—</b> engagements en cours pour <b data-k="engKpi.prix_aem" data-f="meur">—</b> et <b data-k="cesKpi.nb" data-f="int">—</b> cessions pour <b data-k="cesKpi.prix_net" data-f="meur">—</b> nets.</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card"><div class="card-b">
+          <h2 class="h2">Acquisitions</h2>
+          <p class="sub">Actifs acquis en 2026</p>
+          <div class="mini">
+            <div class="mini-row"><span class="mini-l">Lignes d'acquisition</span><span class="mini-v" data-k="acqKpi.nb" data-f="int">—</span></div>
+            <div class="mini-row"><span class="mini-l">Prix d'acquisition AEM</span><span class="mini-v" data-k="acqKpi.prix_aem" data-f="meur">—</span></div>
+            <div class="mini-row"><span class="mini-l">Loyer annuel HT HC</span><span class="mini-v" data-k="acqKpi.loyer" data-f="meur">—</span></div>
+            <div class="mini-row"><span class="mini-l">Rendement brut AEM</span><span class="mini-v" data-k="acqKpi.rendement" data-f="pct">—</span></div>
+            <div class="mini-row"><span class="mini-l">WALB moyenne</span><span class="mini-v" data-k="acqKpi.walb" data-f="yrs">—</span></div>
+          </div>
+        </div></div>
+        <div class="card"><div class="card-b">
+          <h2 class="h2">Engagements</h2>
+          <p class="sub">Actifs engagés, livraison à venir</p>
+          <div class="mini">
+            <div class="mini-row"><span class="mini-l">Actifs engagés</span><span class="mini-v" data-k="engKpi.nb" data-f="int">—</span></div>
+            <div class="mini-row"><span class="mini-l">Prix d'acquisition AEM</span><span class="mini-v" data-k="engKpi.prix_aem" data-f="meur">—</span></div>
+            <div class="mini-row"><span class="mini-l">Appels de fonds passés TTC</span><span class="mini-v" data-k="engKpi.af_passes" data-f="meur">—</span></div>
+            <div class="mini-row"><span class="mini-l">Appels de fonds à venir TTC</span><span class="mini-v" data-k="engKpi.af_futurs" data-f="meur">—</span></div>
+            <div class="mini-row"><span class="mini-l">Rendement brut AEM</span><span class="mini-v" data-k="engKpi.rendement" data-f="pct">—</span></div>
+          </div>
+        </div></div>
+        <div class="card"><div class="card-b">
+          <h2 class="h2">Cessions</h2>
+          <p class="sub">Actifs cédés en 2026</p>
+          <div class="mini">
+            <div class="mini-row"><span class="mini-l">Cessions</span><span class="mini-v" data-k="cesKpi.nb" data-f="int">—</span></div>
+            <div class="mini-row"><span class="mini-l">Prix de cession net</span><span class="mini-v" data-k="cesKpi.prix_net" data-f="meur">—</span></div>
+            <div class="mini-row"><span class="mini-l">Plus ou moins-value</span><span class="mini-v" data-k="cesKpi.pv" data-f="smeur" data-tone="sign">—</span></div>
+            <div class="mini-row"><span class="mini-l">Plus ou moins-value (%)</span><span class="mini-v" data-k="cesKpi.pv_pct" data-f="spct1" data-tone="sign">—</span></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="card"><div class="card-b">
+        <h2 class="h2">Acquisitions par trimestre</h2>
+        <p class="sub">Prix d'acquisition AEM, par fonds</p>
+        <div class="chart" id="ch-acq-trim"></div>
+      </div></div>
+
+      <div class="card"><div class="card-b">
+        <h2 class="h2">Acquisitions 2026</h2>
+        <p class="sub">Onglet « 2) ACQUISITIONS » — par date d'acquisition</p>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Code</th><th>Fonds</th><th>Actif</th><th>Groupe / exploitant</th><th>Pays</th><th>Typologie</th><th>Acquis le</th><th class="num">Prix AEM (€)</th><th class="num">Loyer (€/an)</th><th class="num">Rdt AEM</th><th class="num">WALB</th></tr></thead>
+            <tbody id="tb-acq"></tbody>
+          </table>
+        </div>
+      </div></div>
+
+      <div class="card"><div class="card-b">
+        <h2 class="h2">Engagements</h2>
+        <p class="sub">Onglet « 1) ENGAGEMENTS » — par date de livraison prévue</p>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Code</th><th>Fonds</th><th>Actif</th><th>Groupe / exploitant</th><th>Pays</th><th>Livraison prévue</th><th class="num">Prix AEM (€)</th><th class="num">AF passés TTC</th><th class="num">AF à venir TTC</th><th class="num">Avancement</th><th class="num">Rdt AEM</th></tr></thead>
+            <tbody id="tb-eng"></tbody>
+          </table>
+        </div>
+      </div></div>
+
+      <div class="card"><div class="card-b">
+        <h2 class="h2">Cessions 2026</h2>
+        <p class="sub">Onglet « 3) CESSIONS » — par date de cession</p>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Code</th><th>Portefeuille</th><th>Ville</th><th>Pays</th><th>Cédé le</th><th class="num">Détention</th><th class="num">Prix net (€)</th><th class="num">Plus/moins-value (€)</th><th class="num">En %</th></tr></thead>
+            <tbody id="tb-ces"></tbody>
+          </table>
+        </div>
+      </div></div>
+
+      <details class="foot">
+        <summary>Méthode et définitions</summary>
+        <ul>
+          <li>Source : tableaux des onglets « 1) ENGAGEMENTS », « 2) ACQUISITIONS » et « 3) CESSIONS » du fichier « Fichier reporting_Mouvements Patrimoine_2026 » (SharePoint Equipe Invest), relus à chaque ouverture. Les lignes « Total » du fichier sont ignorées et recalculées ici.</li>
+          <li>Rendement brut AEM et WALB moyens : moyennes pondérées par le prix d'acquisition AEM, comme la ligne Total du fichier. Rendement des acquisitions et engagements : colonne « avec premium ».</li>
+          <li>Plus ou moins-value (%) des cessions : moyenne pondérée par le prix d'acquisition HD, comme dans le fichier.</li>
+          <li>Bacup apparaît deux fois dans les acquisitions (co-investissement 90 % PS, 10 % EHS) : chaque ligne compte pour sa quote-part.</li>
+        </ul>
+      </details>
+    </section>
+  </main>
+</div>
+
+<script src="config.js"></script>
+<script src="msal-browser.min.js"></script>
+<script src="d3.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
